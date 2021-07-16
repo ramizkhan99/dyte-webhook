@@ -1,0 +1,34 @@
+{
+    "name": "dyte-node-ms",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "rimraf dist && tsc",
+        "start": "node dist/index.js",
+        "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+        "prestart": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ramizkhan99/dyte-webhook-microservice.git"
+    },
+    "author": "Ramiz Khan",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ramizkhan99/dyte-webhook-microservice/issues"
+    },
+    "homepage": "https://github.com/ramizkhan99/dyte-webhook-microservice#readme",
+    "dependencies": {
+        "@types/express": "^4.17.13",
+        "@types/node": "^16.3.2",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "rimraf": "^3.0.2",
+        "typescript": "^4.3.5"
+    },
+    "devDependencies": {
+        "concurrently": "^6.2.0",
+        "nodemon": "^2.0.12"
+    }
+}
