@@ -30,11 +30,11 @@ _(The project was built using Windows so the instructions are Windows specific)_
 
 #### Routes
 
-`POST /users` - To add a new user. Body: `{ username: String, role: ["admin" or "user"] }`  
-`POST /` - To add a new URL to webhook. Body: `{ username: String, targetURL: String }` [User requires admin role]
-`GET /` - To get all webhooks. Body: `{ username: String }` [User requires admin role]
-`PUT /` - To update existing webhook. Body: `{ username: String, id: String, newTargetURL: String }` [User requires admin role]
-`DELETE /` - To delete existing webhook. Body: `{ username: String, id: String }` [User requires admin role]
+`POST /users` - To add a new user. Body: `{ username: String, role: ["admin" or "user"] }`<br>
+`POST /` - To add a new URL to webhook. Body: `{ username: String, targetURL: String }` [User requires admin role]<br>
+`GET /` - To get all webhooks. Body: `{ username: String }` [User requires admin role]<br>
+`PUT /` - To update existing webhook. Body: `{ username: String, id: String, newTargetURL: String }` [User requires admin role]<br>
+`DELETE /` - To delete existing webhook. Body: `{ username: String, id: String }` [User requires admin role]<br>
 `POST /ip` - To initiate webhook.trigger. User IP address sent to microservice.
 
 ## Microservice
@@ -62,10 +62,10 @@ _(The project was built using Windows so the instructions are Windows specific)_
 
 #### Routes
 
-`POST /` - To create a new webhook. Action - `webhook.register`. Params: `targetURL: String`.
-`DELETE /` - To delete a webhook. Action - `webhook.delete`. Params: `id: String`.
-`GET /` - To get all webhooks. Action - `webhook.list`.
-`PUT /` - To update a webhook. Action - `webhook.update`. Params: `id: String, newTargetURL: String`.
+`POST /` - To create a new webhook. Action - `webhook.register`. Params: `targetURL: String`.<br>
+`DELETE /` - To delete a webhook. Action - `webhook.delete`. Params: `id: String`.<br>
+`GET /` - To get all webhooks. Action - `webhook.list`.<br>
+`PUT /` - To update a webhook. Action - `webhook.update`. Params: `id: String, newTargetURL: String`.<br>
 `GET /trigger` - To initiate trigger. Action `webhook.trigger`. Params: `ipAddress: String`.
 
 ## Testing the apps
