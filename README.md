@@ -16,6 +16,7 @@ This is made to run on port `4080` by default. To change it modify the `.env` fi
 -   Mongoose _(For connecting and using MongoDB as a database)_
 -   Rimraf _(To help clean and build project)_
 -   Concurrently and Nodemon _(Used to aid faster development)_
+-   ~~Axios-retry~~ _(Was used to retry 5 times on trigger but caused problem for parallel api calls so removed)
 
 #### To run the project:
 
