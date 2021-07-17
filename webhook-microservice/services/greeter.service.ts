@@ -1,14 +1,13 @@
 "use strict";
 
-import {Service, ServiceBroker, Context} from "moleculer";
+import { Service, ServiceBroker, Context } from "moleculer";
 
 export default class GreeterService extends Service {
-
 	public constructor(public broker: ServiceBroker) {
 		super(broker);
 		this.parseServiceSchema({
 			name: "greeter",
-			actions:{
+			actions: {
 				/**
 				 * Say a 'Hello' action.
 				 *
@@ -31,7 +30,9 @@ export default class GreeterService extends Service {
 					params: {
 						name: "string",
 					},
-					async handler(ctx: Context<{name: string}>): Promise<string> {
+					async handler(
+						ctx: Context<{ name: string }>
+					): Promise<string> {
 						return this.ActionWelcome(ctx.params.name);
 					},
 				},
