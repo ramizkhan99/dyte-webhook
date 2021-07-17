@@ -66,11 +66,11 @@ _(The project was built using Windows so the instructions are Windows specific)_
 
 #### Routes
 
-`POST /` - To create a new webhook. Action - `webhook.register`. Params: `targetURL: String`.<br>
-`DELETE /` - To delete a webhook. Action - `webhook.delete`. Params: `id: String`.<br>
-`GET /` - To get all webhooks. Action - `webhook.list`.<br>
-`PUT /` - To update a webhook. Action - `webhook.update`. Params: `id: String, newTargetURL: String`.<br>
-`GET /trigger` - To initiate trigger. Action `webhook.trigger`. Params: `ipAddress: String`.
+`POST /` - To create a new webhook. Action - `webhooks.register`. Params: `targetURL: String`.<br>
+`DELETE /` - To delete a webhook. Action - `webhooks.delete`. Params: `id: String`.<br>
+`GET /` - To get all webhooks. Action - `webhooks.list`.<br>
+`PUT /` - To update a webhook. Action - `webhooks.update`. Params: `id: String, newTargetURL: String`.<br>
+`GET /trigger` - To initiate trigger. Action `webhooks.trigger`. Params: `ipAddress: String`.
 
 ## Testing the apps
 
