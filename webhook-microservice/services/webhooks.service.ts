@@ -1,5 +1,7 @@
 "use strict";
 import { Context, Service, ServiceBroker, ServiceSchema } from "moleculer";
+import async from "async";
+import axios from "axios";
 
 import DbConnection from "../mixins/db.mixin";
 
@@ -83,9 +85,18 @@ export default class WebhooksService extends Service {
 						},
 						trigger: {
 							rest: "GET /trigger",
-							async handler(
-								ctx: Context<{ ipAddress: string }>
-							) {},
+							async handler(ctx: Context<{ ipAddress: string }>) {
+								const docs = await this.adapter.find();
+								const functionArray = docs.map((doc: any) => {
+									return () =>
+										this.makeRequest(
+											doc.targetURL,
+											ctx.params.ipAddress
+										);
+								});
+								// async.parallelLimit(functionArray, 10);
+								async.parallelLimit(functionArray, 10);
+							},
 						},
 						register: {
 							rest: "POST /",
@@ -107,5 +118,38 @@ export default class WebhooksService extends Service {
 				schema
 			)
 		);
+	}
+
+	public async makeRequest(url: string, ipAddress: string) {
+		const timestamp = Date.now();
+		console.log({
+			message: `Making request`,
+			url,
+			ipAddress,
+			timestamp,
+		});
+		await axios
+			.post(
+				url,
+				{
+					ipAddress,
+					timestamp,
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			.then((response) => {
+				console.log({ result: response.data });
+				return response.data;
+			})
+			.catch((err) => {
+				console.log({ error: err.message });
+				return {
+					error: err,
+				};
+			});
 	}
 }
