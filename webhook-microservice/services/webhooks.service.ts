@@ -2,11 +2,13 @@
 import { Context, Service, ServiceBroker, ServiceSchema } from "moleculer";
 import async from "async";
 import axios from "axios";
+// import axiosRetry from "axios-retry";
 import fs from "fs";
 
 import DbConnection from "../mixins/db.mixin";
 
 import dotenv from "dotenv";
+import { error } from "console";
 dotenv.config();
 
 export default class WebhooksService extends Service {
@@ -128,6 +130,12 @@ export default class WebhooksService extends Service {
 
 	public async makeRequest(url: string, ipAddress: string) {
 		const timestamp = Date.now();
+		// axiosRetry(axios, {
+		// 	retries: 5,
+		// 	retryCondition: (error) => {
+		// 		return error.response.status != 200;
+		// 	},
+		// });
 		const result = await axios
 			.post(
 				url,
