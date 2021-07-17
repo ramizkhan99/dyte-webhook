@@ -6,7 +6,7 @@
     "scripts": {
         "build": "rimraf dist && tsc",
         "start": "node dist/app.js",
-        "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+        "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
         "prestart": "npm run build"
     },
     "repository": {
