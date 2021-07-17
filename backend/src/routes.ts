@@ -19,6 +19,7 @@ router.post("/users", async (req: Request, res: Response) => {
         let user = new User(req.body);
 
         await user.save();
+        res.cookie("username", req.body.username);
         res.status(201).json({
             message: "User Created",
             id: user.id,
@@ -106,6 +107,26 @@ router.delete(
             });
     }
 );
+
+router.post("/login", async (req: Request, res: Response) => {
+    try {
+        if (!req.body.username) {
+            throw new Error("Invalid request");
+        }
+        const user = await User.findOne({
+            username: req.body.username,
+        });
+
+        if (!user) {
+            throw new Error("No such user found");
+        }
+
+        res.cookie("username", req.body.username);
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+});
 
 router.post("/ip", async (req: Request, res: Response) => {
     axios

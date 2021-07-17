@@ -7,9 +7,10 @@ export interface IAuthRequest extends Request {
 
 const auth = async (req: IAuthRequest, res: Response, next: NextFunction) => {
     try {
-        // TODO: Add token for persistent connections
+        const username = req.cookies.username;
+
         const user = await User.findOne({
-            username: req.body.username,
+            username,
         });
         if (!user) {
             throw new Error("User not found");
