@@ -32,7 +32,7 @@ router.post("/users", async (req: Request, res: Response) => {
 
 // Webhook routes
 router.post(
-    "/webhooks",
+    "/",
     // @ts-ignore
     [auth, checkRole(UserRole.ADMIN)],
     async (req: Request, res: Response) => {
@@ -52,7 +52,7 @@ router.post(
 );
 
 router.get(
-    "/webhooks",
+    "/",
     // @ts-ignore
     [auth, checkRole(UserRole.ADMIN)],
     async (req: Request, res: Response) => {
@@ -70,7 +70,7 @@ router.get(
 );
 
 router.put(
-    "/webhooks",
+    "/",
     // @ts-ignore
     [auth, checkRole(UserRole.ADMIN)],
     async (req: Request, res: Response) => {
@@ -90,7 +90,7 @@ router.put(
 );
 
 router.delete(
-    "/webhooks",
+    "/",
     // @ts-ignore
     [auth, checkRole(UserRole.ADMIN)],
     async (req: Request, res: Response) => {
@@ -106,5 +106,18 @@ router.delete(
             });
     }
 );
+
+router.post("/ip", async (req: Request, res: Response) => {
+    axios
+        .post(`${process.env.WEBHOOKS_URI}/trigger?ipAddress=${req.ip}`)
+        .then((response) => {
+            res.status(response.status).json(response.data);
+        })
+        .catch((err) => {
+            res.status(err.response.data.code).json({
+                message: err.response.data.message,
+            });
+        });
+});
 
 export default router;

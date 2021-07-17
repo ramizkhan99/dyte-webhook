@@ -55,7 +55,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# .env
+# Included for running purposes
 
 # next.js build output
 .next
@@ -65,3 +66,6 @@ typings/
 
 # Don't track transpiled files
 dist/
+
+# Log files
+*.log

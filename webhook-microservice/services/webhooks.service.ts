@@ -2,6 +2,7 @@
 import { Context, Service, ServiceBroker, ServiceSchema } from "moleculer";
 import async from "async";
 import axios from "axios";
+import fs from "fs";
 
 import DbConnection from "../mixins/db.mixin";
 
@@ -10,6 +11,7 @@ dotenv.config();
 
 export default class WebhooksService extends Service {
 	private DbMixin = new DbConnection("webhooks").start();
+	public triggerResults: Object[] = [];
 
 	// @ts-ignore
 	public constructor(
@@ -94,8 +96,12 @@ export default class WebhooksService extends Service {
 											ctx.params.ipAddress
 										);
 								});
-								// async.parallelLimit(functionArray, 10);
 								async.parallelLimit(functionArray, 10);
+
+								return {
+									message:
+										"Webhook Trigger activated. Please find report file in the microservice folder",
+								};
 							},
 						},
 						register: {
@@ -122,13 +128,7 @@ export default class WebhooksService extends Service {
 
 	public async makeRequest(url: string, ipAddress: string) {
 		const timestamp = Date.now();
-		console.log({
-			message: `Making request`,
-			url,
-			ipAddress,
-			timestamp,
-		});
-		await axios
+		const result = await axios
 			.post(
 				url,
 				{
@@ -151,5 +151,18 @@ export default class WebhooksService extends Service {
 					error: err,
 				};
 			});
+		const data =
+			JSON.stringify(
+				{
+					ip: ipAddress,
+					timestamp,
+					result,
+				},
+				null,
+				4
+			) + "\n";
+		fs.writeFile("TriggerReport.log", data, { flag: "a+" }, (err) => {
+			if (err) console.log(err);
+		});
 	}
 }
