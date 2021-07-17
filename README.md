@@ -75,7 +75,7 @@ _(The project was built using Windows so the instructions are Windows specific)_
 ## Testing the apps
 
 For testing the routes I used Postman.  
-The Postman collection can be found [here](https://www.getpostman.com/collections/9c8a35386f425fe800bd).
+The Postman collection can be found [here](https://documenter.getpostman.com/view/5840146/TzmCgYdm).
 
 ## Notes
 
