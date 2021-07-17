@@ -31,11 +31,14 @@ _(The project was built using Windows so the instructions are Windows specific)_
 #### Routes
 
 `POST /users` - To add a new user. Body: `{ username: String, role: ["admin" or "user"] }`<br>
-`POST /` - To add a new URL to webhook. Body: `{ username: String, targetURL: String }` [User requires admin role]<br>
-`GET /` - To get all webhooks. Body: `{ username: String }` [User requires admin role]<br>
-`PUT /` - To update existing webhook. Body: `{ username: String, id: String, newTargetURL: String }` [User requires admin role]<br>
-`DELETE /` - To delete existing webhook. Body: `{ username: String, id: String }` [User requires admin role]<br>
+`POST /login` - To login as user. Body: `{ username: String }`<br>
+`POST /` - To add a new URL to webhook. Body: `{ targetURL: String }` [User requires admin role]<br>
+`GET /` - To get all webhooks. [User requires admin role]<br>
+`PUT /` - To update existing webhook. Body: `{ id: String, newTargetURL: String }` [User requires admin role]<br>
+`DELETE /` - To delete existing webhook. Body: `{ id: String }` [User requires admin role]<br>
 `POST /ip` - To initiate webhook.trigger. User IP address sent to microservice.
+
+_For routes that require admin role, you must first login or create a user with a role of **admin**._
 
 ## Microservice
 
