@@ -4,7 +4,6 @@ import { Context, Service, ServiceBroker, ServiceSchema } from "moleculer";
 import DbConnection from "../mixins/db.mixin";
 
 import dotenv from "dotenv";
-import { errorHandler } from "../moleculer.config";
 dotenv.config();
 
 export default class WebhooksService extends Service {
@@ -30,6 +29,24 @@ export default class WebhooksService extends Service {
 						count: false,
 						create: false,
 						insert: false,
+						remove: false,
+						get: false,
+						delete: {
+							rest: "DELETE /",
+							async handler(ctx: Context<{ id: string }>) {
+								const deleted = await this.adapter.removeById(
+									ctx.params.id
+								);
+								if (!deleted) {
+									return {
+										message: "No such webhooks",
+									};
+								}
+								return {
+									message: "Webhook deleted successfully",
+								};
+							},
+						},
 						list: {
 							rest: "GET /",
 							// @ts-ignore
@@ -39,15 +56,29 @@ export default class WebhooksService extends Service {
 							},
 						},
 						update: {
-							// #TODO: Continue from here
-							rest: "GET /update",
-							handler(
+							rest: "PUT /",
+							async handler(
 								ctx: Context<{
 									id: string;
 									newTargetURL: string;
 								}>
 							) {
-								return "Just a test";
+								const doc = await this.adapter.updateById(
+									ctx.params.id,
+									{
+										$set: {
+											targetURL: ctx.params.newTargetURL,
+										},
+									}
+								);
+								const json = await this.transformDocuments(
+									ctx,
+									ctx.params,
+									doc
+								);
+								await this.entityChanged("updated", json, ctx);
+
+								return json;
 							},
 						},
 						trigger: {
@@ -57,7 +88,7 @@ export default class WebhooksService extends Service {
 							) {},
 						},
 						register: {
-							rest: "POST /register",
+							rest: "POST /",
 							params: {
 								targetURL: "string",
 							},
