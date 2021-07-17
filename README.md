@@ -82,3 +82,4 @@ The Postman collection can be found [here](https://documenter.getpostman.com/vie
 -   The application isn't really secure. Even though there are access control levels, it has been implemented using username and there is nothing like a JWT authentication.
 -   The `.env` files have been exposed but they don't have any sensitive information.
 -   The `webhook.trigger` action outputs the results in a `TriggerReport.log` file in the `webhook-microservice` directory.
+-   Please ensure both the projects have started properly for the application to work.
