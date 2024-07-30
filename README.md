@@ -2,7 +2,7 @@
 
 **Note:** All the code is written in Typescript with Node.js.
 
-This application is consists of two parts-
+This application consists of two parts-
 
 ## Backend
 
